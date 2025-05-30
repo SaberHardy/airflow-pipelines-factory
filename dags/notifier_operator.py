@@ -1,10 +1,9 @@
-from airflow.sdk import BaseNotifier
-from airflow.utils.context import Context
-from airflow import DAG
+from plugins.operators.notifier_operator import NotifierOperator
 from airflow.operators.empty import EmptyOperator
+from airflow.utils.context import Context
 from airflow.utils.dates import days_ago
-# from airflow.sdk
-# from plugins.operators.notifier_operator import NotifierOperator
+from airflow.sdk import BaseNotifier
+from airflow import DAG
 
 
 class NotifierOperator(BaseNotifier):
