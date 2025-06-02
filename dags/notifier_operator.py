@@ -1,5 +1,6 @@
+import pendulum
 from plugins.operators.notifier_operator import NotifierOperator
-from airflow.operators.empty import EmptyOperator
+from airflow.providers.standard.operators import empty
 from airflow.utils.context import Context
 from airflow.utils.dates import days_ago
 from airflow.sdk import BaseNotifier
@@ -23,12 +24,12 @@ class NotifierOperator(BaseNotifier):
 
 with DAG(
     dag_id="example_notifier_dag",
-    start_date=days_ago(1),
+    start_date=pendulum.datetime(2020, 11, 27),
     schedule=None,
     catchup=False,
 ) as dag:
 
-    start = EmptyOperator(task_id="start")
+    start = empty.EmptyOperator(task_id="start")
 
     notify_success = NotifierOperator(
         task_id="notify_success",
@@ -36,6 +37,6 @@ with DAG(
         notify_target="stdout",
     )
 
-    end = EmptyOperator(task_id="end")
+    end = empty.EmptyOperator(task_id="end")
 
     start >> notify_success >> end
