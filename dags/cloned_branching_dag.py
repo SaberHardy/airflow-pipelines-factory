@@ -5,7 +5,6 @@ from airflow.utils.trigger_rule import TriggerRule
 
 with DAG(dag_id="this_is_dag_id",
          dag_display_name="Params Trigger UI",
-         # description=__doc__.partition(".")[0],
          doc_md=__doc__,
          schedule=None,
          start_date=datetime.datetime(2022, 3, 4),
@@ -20,8 +19,7 @@ with DAG(dag_id="this_is_dag_id",
              "english": Param(True, type="boolean", title="English"),
              "german": Param(True, type="boolean", title="German (Formal)"),
              "french": Param(True, type="boolean", title="French")
-         },
-         ) as dag:
+         }) as dag:
     @task(task_id="get_names", task_display_name="Get names")
     # [docs]
     def get_names(**kwargs) -> list[str]:
